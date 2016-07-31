@@ -76,13 +76,15 @@
             }
 
             var venue = result.response.venues[0];
-            //console.log(venue);
 
             var new_text = '';
-
-            new_text += 'Checkins: ' + venue.stats.checkinsCount;
-            new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
-            new_text += ', Tips: ' + venue.stats.tipCount;
+            if (typeof venue === 'undefined' || !venue.hasOwnProperty('stats')) {
+                new_text = 'No data. :(';
+            } else {
+                new_text += 'Checkins: ' + venue.stats.checkinsCount;
+                new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
+                new_text += ', Tips: ' + venue.stats.tipCount;
+            }
 
             $(replace, ref).textContent = new_text;
         };
@@ -135,6 +137,7 @@
 
     var build_request = function(query_data, config) {
         var restaurant, the_this, new_text;
+
         $$(config.wrapper).forEach(function(the_this, i) {
             //the_this = $(this);
 
