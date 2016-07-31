@@ -37,7 +37,7 @@
 
     // deliveroo
     var deliveroo_config = {
-        wrapper: '.restaurant-index-page--list-section',
+        wrapper: '.restaurant-index-page-tile',
         restaurant_name: '.restaurant-index-page-tile--name',
         replace: '.restaurant-index-page-tile--tag'
     };
@@ -95,11 +95,14 @@
         var location = {};
 
         // parse URL: /de/restaurants/berlin/kreuzberg
-        // 0 = language
-        // 1 = 'restaurants'
+        // 0 =
+        // 1 = language
+        // 2 = 'restaurants'
 
-        location.city = url_parts[2];
-        location.near = url_parts[3];
+        location.city = url_parts[3];
+        location.near = url_parts[4];
+
+        return location;
     };
 
     var foodora_bootstrap = function(url_parts) {
@@ -145,7 +148,7 @@
 
     var url_parts = window.location.pathname.split('/');
 
-    if (window.location.hostname.indexOf('foodora.de')) {
+    if (window.location.hostname.indexOf('foodora.de') !== -1) {
         Object.assign(query_data, foodora_bootstrap(url_parts));
         build_request(query_data, foodora_config);
     } else {
