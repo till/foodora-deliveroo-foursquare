@@ -79,20 +79,34 @@
 
             var venue = result.response.venues[0];
 
-            var new_text = '';
-            if (typeof venue === 'undefined' || !venue.hasOwnProperty('stats')) {
-                new_text = 'No data. :(';
-            } else {
-                new_text += 'Checkins: ' + venue.stats.checkinsCount;
-                new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
-                new_text += ', Tips: ' + venue.stats.tipCount;
+            if (typeof venue === 'undefined') {
+                update_text('Venue not found. :(');
+                return;
             }
 
-            $(replace, ref).textContent = new_text;
+            if (!venue.hasOwnProperty('stats')) {
+                update_text('No stats, or not enough visitors.', $(replace, ref));
+                return;
+            }
+
+            var new_text = '';
+            new_text += 'Checkins: ' + venue.stats.checkinsCount;
+            new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
+            new_text += ', Tips: ' + venue.stats.tipCount;
+
+            update_text(new_text, $(replace, ref));
         };
 
         http.open('GET', 'https://api.foursquare.com/v2/venues/search?' + query_string.join('&'));
         http.send();
+    };
+
+    var update_text = function(text, ref) {
+        // prefix logo
+        text = '<img src="' + fsq_logo + '" width="20" height="20"/> ' + text;
+
+        // apply update
+        ref.innerHTML = text;
     };
 
     var deliveroo_bootstrap = function(url_parts) {
@@ -140,9 +154,8 @@
     var build_request = function(query_data, config) {
         var restaurant, the_this, new_text;
 
+        console.log(query_data);
         $$(config.wrapper).forEach(function(the_this, i) {
-            //the_this = $(this);
-
             restaurant = $(config.restaurant_name, the_this).textContent.trim();
 
             query_data.query = restaurant;
