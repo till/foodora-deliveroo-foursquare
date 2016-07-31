@@ -7,3 +7,5 @@ Um das Skript benutzen zu können, musst Du Dir eine ["App" bei Foursquare](http
 ## Screenshots
 
 ![Beispiel foodora](https://www.dropbox.com/s/raxo3120rztzkxj/Screenshot%202016-07-31%2001.16.59.png?dl=1)
+
+![Beispiel deliveroo](https://www.dropbox.com/s/1d2ola7cuygxzxq/Screenshot%202016-07-31%2004.34.28.png?dl=1)
