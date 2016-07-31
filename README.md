@@ -14,6 +14,6 @@ Das Skript steht unter der [BSD-2-Clause-Lizenz](https://opensource.org/licenses
 
 ## Screenshots
 
-![Beispiel foodora](https://www.dropbox.com/s/raxo3120rztzkxj/Screenshot%202016-07-31%2001.16.59.png?dl=1)
+![Beispiel foodora](https://www.dropbox.com/s/h4zxqw9zmfam3oy/Screenshot%202016-08-01%2000.12.47.png?dl=1)
 
-![Beispiel deliveroo](https://www.dropbox.com/s/1d2ola7cuygxzxq/Screenshot%202016-07-31%2004.34.28.png?dl=1)
+![Beispiel deliveroo](https://www.dropbox.com/s/74skz0nhk9hcblr/Screenshot%202016-08-01%2000.00.38.png?dl=1)
