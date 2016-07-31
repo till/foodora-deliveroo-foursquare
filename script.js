@@ -49,9 +49,27 @@
         replace: '.restaurants__list__item-description'
     };
 
+    var $ = function(selector, el) {
+        if (!el) {el = document;}
+        return el.querySelector(selector);
+    };
+
+    var $$ = function(selector, el) {
+        if (!el) {el = document;}
+        return Array.prototype.slice.call(el.querySelectorAll(selector));
+    };
+
     var make_request = function(query_data, ref, replace) {
-        $.get('https://api.foursquare.com/v2/venues/search', query_data, 'json')
-            .done(function(result) {
+        var http = new XMLHttpRequest(),
+            query_string = [];
+
+        Object.keys(query_data).forEach(function(k){
+            query_string.push(k + '=' + encodeURIComponent(query_data[k]));
+        });
+
+        http.onreadystatechange = function() {
+            var result = JSON.parse(http.responseText); // LOL
+
             if (result.meta.code != 200) {
                 console.error('Could not determine query foursquare for venue.');
                 return;
@@ -66,11 +84,11 @@
             new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
             new_text += ', Tips: ' + venue.stats.tipCount;
 
-            $(ref).find(replace).text(new_text);
-        })
-            .error(function(){
-            console.error('Could not HTTP!!11');
-        });
+            $(replace, ref).textContent = new_text;
+        };
+
+        http.open('GET', 'https://api.foursquare.com/v2/venues/search?' + query_string.join('&'));
+        http.send();
     };
 
     var deliveroo_bootstrap = function(url_parts) {
@@ -114,10 +132,10 @@
 
     var build_request = function(query_data, config) {
         var restaurant, the_this, new_text;
-        $(config.wrapper).each(function(i) {
-            the_this = $(this);
+        $$(config.wrapper).forEach(function(the_this, i) {
+            //the_this = $(this);
 
-            restaurant = $(the_this).find(config.restaurant_name).text().trim();
+            restaurant = $(config.restaurant_name, the_this).textContent.trim();
 
             query_data.query = restaurant;
 
