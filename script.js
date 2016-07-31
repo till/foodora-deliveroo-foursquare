@@ -5,6 +5,7 @@
 // @description  Foursquare ratings & foodora!
 // @author       Till Klampaeckel <till@php.net>
 // @match        https://www.foodora.de/restaurants/*
+// @match        https://deliveroo.de/de/restaurants/*
 // @grant        none
 // ==/UserScript==
 
@@ -33,6 +34,13 @@
     // configure request
     query_data.intend = 'match';
     query_data.limit = 1;
+
+    // deliveroo
+    var deliveroo_config = {
+        wrapper: '.restaurant-index-page--list-section',
+        restaurant_name: '.restaurant-index-page-tile--name',
+        replace: '.restaurant-index-page-tile--tag'
+    };
 
     // foodora
     var foodora_config = {
@@ -65,6 +73,17 @@
         });
     };
 
+    var deliveroo_bootstrap = function(url_parts) {
+        var location = {};
+
+        // parse URL: /de/restaurants/berlin/kreuzberg
+        // 0 = language
+        // 1 = 'restaurants'
+
+        location.city = url_parts[2];
+        location.near = url_parts[3];
+    };
+
     var foodora_bootstrap = function(url_parts) {
         var location = {}, latitude, longitude;
 
@@ -93,7 +112,7 @@
         return location;
     };
 
-    var foodora = function(query_data, config) {
+    var build_request = function(query_data, config) {
         var restaurant, the_this, new_text;
         $(config.wrapper).each(function(i) {
             the_this = $(this);
@@ -106,6 +125,13 @@
         });
     };
 
-    $.extend(query_data, foodora_bootstrap(window.location.pathname.split('/')));
-    foodora(query_data, foodora_config);
+    var url_parts = window.location.pathname.split('/');
+
+    if (window.location.hostname.indexOf('foodora.de')) {
+        Object.assign(query_data, foodora_bootstrap(url_parts));
+        build_request(query_data, foodora_config);
+    } else {
+        Object.assign(query_data, deliveroo_bootstrap(url_parts));
+        build_request(query_data, deliveroo_config);
+    }
 })();
