@@ -63,7 +63,8 @@
 
     var make_request = function(query_data, ref, replace) {
         var http = new XMLHttpRequest(),
-            query_string = [];
+            query_string = [],
+            template = 'Checkins: <a href="{link}" target="_blank">{checkin}</a> ({retention}), Tips: <a href="{link}" target="_blank">{tips}</a>';
 
         Object.keys(query_data).forEach(function(k){
             query_string.push(k + '=' + encodeURIComponent(query_data[k]));
@@ -80,7 +81,7 @@
             var venue = result.response.venues[0];
 
             if (typeof venue === 'undefined') {
-                update_text('Venue not found. :(');
+                update_text('Venue not found. :(', $(replace, ref));
                 return;
             }
 
@@ -89,10 +90,11 @@
                 return;
             }
 
-            var new_text = '';
-            new_text += 'Checkins: ' + venue.stats.checkinsCount;
-            new_text += ' (' + (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1) + ')';
-            new_text += ', Tips: ' + venue.stats.tipCount;
+            var new_text = template
+                .replace('{checkin}', venue.stats.checkinsCount)
+                .replace('{retention}', (venue.stats.checkinsCount/venue.stats.usersCount).toFixed(1))
+                .replace('{tips}', venue.stats.tipCount)
+                .replace(new RegExp('{link}', 'g'), 'https://foursquare.com/v/' + venue.id);
 
             update_text(new_text, $(replace, ref));
         };
@@ -154,7 +156,6 @@
     var build_request = function(query_data, config) {
         var restaurant, the_this, new_text;
 
-        console.log(query_data);
         $$(config.wrapper).forEach(function(the_this, i) {
             restaurant = $(config.restaurant_name, the_this).textContent.trim();
 
