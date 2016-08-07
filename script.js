@@ -33,11 +33,10 @@
         return Array.prototype.slice.call(el.querySelectorAll(selector));
     };
 
-    // Load:
-    // 1. lib/http.js
-    // 2. lib/foursquare.js
-    // 3. lib/bootstrap.js
-    // 4. lib/handler.js
+    var Http = require('./lib/http'),
+        Foursquare = require('./lib/foursquare'),
+        Bootstrap = require('./lib/bootstrap'),
+        Handler = require('./lib/handler');
 
     const fsq = new Foursquare(new Http(
         'https://api.foursquare.com/v2',
