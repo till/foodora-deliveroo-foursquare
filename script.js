@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         foodora-deliveroo-foursquare
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      __VERSION__
 // @description  Foursquare ratings & foodora!
 // @author       Till Klampaeckel <till@php.net>
 // @match        https://www.foodora.de/restaurants/*
