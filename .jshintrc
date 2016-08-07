@@ -1,4 +1,9 @@
 {
+    "browser": true,
+    "devel": true,
     "esversion": 6,
-    "moz": true
+    "moz": true,
+    "predef": [
+        "require"
+    ]
 }
