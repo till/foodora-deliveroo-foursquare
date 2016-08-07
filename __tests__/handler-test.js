@@ -1,14 +1,39 @@
 jest.unmock('../lib/handler');
 
 describe('Handler', () => {
-    it('detects foodora', () => {
-        var Bootstrap = require('../lib/bootstrap'),
-            start = new Bootstrap('https://www.foodora.de/');
+    const VENUE_ID = 'some-random-id';
 
-        expect(start.is_foodora()).to_be(true);
+    const FAKE_API_RESULT = {
+        response: {
+            venues: [
+                {
+                    id: VENUE_ID,
+                    stats: {
+                        checkinsCount: 100,
+                        tipCount: 11,
+                        usersCount: 3
+                    }
+                }
+            ]
+        }
+    };
+
+    it('fills the template', () => {
+        var Handler = require('../lib/handler'),
+            // ignores links for now
+            handler = new Handler('{checkin}-{retention}-{tips}', null);
+
+        expect(handler.handle(FAKE_API_RESULT)).toEqual('100-33.3-11');
     });
 
-    it('detects deliveroo', () => {
+    it('sets multiple links', () => {
+      var Handler = require('../lib/handler'),
+          // multiple links
+          handler = new Handler('{link}_{link}', null);
 
+      expect(handler.handle(FAKE_API_RESULT))
+          .toEqual(
+              'https://foursquare.com/v/' + VENUE_ID + '_' + 'https://foursquare.com/v/' + VENUE_ID
+          );
     });
 });
