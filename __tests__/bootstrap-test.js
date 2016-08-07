@@ -1,4 +1,5 @@
 jest.unmock('../lib/bootstrap');
+jest.unmock('../lib/location_parser');
 
 describe('Bootstrap', () => {
     describe('foodora', () => {
