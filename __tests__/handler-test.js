@@ -21,7 +21,7 @@ describe('Handler', () => {
     it('fills the template', () => {
         var Handler = require('../lib/handler'),
             // ignores links for now
-            handler = new Handler('{checkin}-{retention}-{tips}', null);
+            handler = new Handler('{checkin}-{retention}-{tips}');
 
         expect(handler.handle(FAKE_API_RESULT)).toEqual('100-33.3-11');
     });
@@ -29,7 +29,7 @@ describe('Handler', () => {
     it('sets multiple links', () => {
       var Handler = require('../lib/handler'),
           // multiple links
-          handler = new Handler('{link}_{link}', null);
+          handler = new Handler('{link}_{link}');
 
       expect(handler.handle(FAKE_API_RESULT))
           .toEqual(
