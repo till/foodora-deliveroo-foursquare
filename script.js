@@ -51,7 +51,7 @@
     template += 'Tips: <a href="{link}" target="_blank">{tips}</a>';
     template += ' <span class="venue={id}">&hellip;</span>';
 
-    const start = new Bootstrap(window.location);
+    const start = new Bootstrap(window.location, new Handler(template));
 
     if (start.is_foodora()) {
         start.config = {
