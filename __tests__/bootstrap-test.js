@@ -6,10 +6,10 @@ describe('Bootstrap', () => {
         it('is detected', () => {
             var Bootstrap = require('../lib/bootstrap'),
                 fake_location = {
-                  hostname: 'foodora.de',
-                  pathname: '/'
+                    hostname: 'foodora.de',
+                    pathname: '/'
                 },
-                start = new Bootstrap(fake_location);
+                start = new Bootstrap(fake_location, null);
 
             expect(start.is_foodora()).toBeTruthy();
         });
@@ -17,10 +17,10 @@ describe('Bootstrap', () => {
         it('extracts city, zip and ll from the URL', () => {
             var Bootstrap = require('../lib/bootstrap'),
                 fake_location = {
-                  hostname: 'foodora.de',
-                  pathname: '/restaurants/lat/52.50065060000001/lng/13.417732099999967/plz/10999/city/Berlin/'
+                    hostname: 'foodora.de',
+                    pathname: '/restaurants/lat/52.50065060000001/lng/13.417732099999967/plz/10999/city/Berlin/'
                 },
-                start = new Bootstrap(fake_location),
+                start = new Bootstrap(fake_location, null),
                 query_data = start.create_query();
 
             ['city', 'zip', 'll'].forEach(function(property){
@@ -37,10 +37,10 @@ describe('Bootstrap', () => {
         it('is detected', () => {
             var Bootstrap = require('../lib/bootstrap'),
                 fake_location = {
-                  hostname: 'deliveroo.de',
-                  pathname: '/'
+                    hostname: 'deliveroo.de',
+                    pathname: '/'
                 },
-                start = new Bootstrap(fake_location);
+                start = new Bootstrap(fake_location, null);
 
             expect(start.is_foodora()).toBeFalsy();
         });
@@ -51,7 +51,7 @@ describe('Bootstrap', () => {
                   hostname: 'deliveroo.de',
                   pathname: '/de/restaurants/berlin/kreuzberg'
                 },
-                start = new Bootstrap(fake_location),
+                start = new Bootstrap(fake_location, null),
                 query_data = start.create_query();
 
             ['city', 'near'].forEach(function(property){
