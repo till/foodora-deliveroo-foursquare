@@ -1,12 +1,14 @@
 {
-    "name": "foodora-deliveroo-foursquare",
-    "description": "A tampermonkey-script to enhance deliveroo and foodora with Foursquare data.",
-    "license": "BSD-2-Clause",
-    "repository": "https://github.com/till/foodora-deliveroo-foursquare",
-    "devDependencies": {
-        "jshint": "^2.9.2"
-    },
-    "scripts": {
-        "test": "jshint script.js"
-    }
+  "name": "foodora-deliveroo-foursquare",
+  "description": "A tampermonkey-script to enhance deliveroo and foodora with Foursquare data.",
+  "license": "BSD-2-Clause",
+  "repository": "https://github.com/till/foodora-deliveroo-foursquare",
+  "devDependencies": {
+    "jest-cli": "^14.1.0",
+    "jshint": "^2.9.2"
+  },
+  "scripts": {
+    "lint": "jshint script.js ./lib/",
+    "test": "jest"
+  }
 }
