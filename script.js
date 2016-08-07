@@ -13,8 +13,8 @@
     'use strict';
 
     // api credentials - DO NOT COMMIT
-    var client_id = '',
-        client_secret = '';
+    var client_id = process.env.FOURSQUARE_CLIENT_ID,
+        client_secret = process.env.FOURSQUARE_CLIENT_SECRET;
 
 
     // CONFIGURATION END

@@ -7,6 +7,7 @@
   "devDependencies": {
     "browserify": "^13.1.0",
     "browserify-versionify": "1.0.6",
+    "envlocalify": "1.1.1",
     "jest-cli": "^14.1.0",
     "jshint": "^2.9.2"
   },
@@ -17,7 +18,8 @@
   },
   "browserify": {
     "transform": [
-      "browserify-versionify"
+      "browserify-versionify",
+      "envlocalify"
     ]
   }
 }

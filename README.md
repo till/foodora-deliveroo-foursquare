@@ -2,7 +2,20 @@
 
 User-script für [tampermonkey](http://tampermonkey.net) um Foursquare Checkins, Tips, ... auf foodora und Deliveroo anzuzeigen.
 
-Um das Skript benutzen zu können, musst Du Dir eine ["App" bei Foursquare](https://foursquare.com/developers/apps) anlegen. Die Konfiguration für die `client_id` und `client_secret` ist bisher im Skript (bis ich lerne wie das besser geht).
+## Installation
+
+Um das Skript benutzen zu können, musst Du Dir eine ["App" bei Foursquare](https://foursquare.com/developers/apps) anlegen. Die Konfiguration ist in `.env.local` (Ein Beispiel ist in `.env`).
+
+Der Rest der Schritte ist wie folgt:
+
+```
+$ git clone https://github.com/till/foodora-deliveroo-foursquare
+$ cd foodora-deliveroo-foursquare
+$ npm install
+$ npm run-script build
+```
+
+Das Ergebnis dann lokal in tampermonkey einbinden.
 
 ## Lizenzen & rechtlicher Hinweis
 
